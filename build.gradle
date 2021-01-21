@@ -1,3 +1,5 @@
+
+
 buildscript {
     ext {
         kotlin_version = "1.4.21"
@@ -9,8 +11,12 @@ buildscript {
         constraint_layout_version = "2.0.4"
         vectordrawable_version = "1.1.0"
         gradle_version = "4.1.2"
-        rx_java_version = "2.2.8"
+        rx_java_version = "2.2.20"
         swipe_refresh_layout_version = "1.1.0"
+        retrofit_version = "2.9.0"
+        moshi_version = '1.11.0'
+        rxjava_adater_version = "2.2.0"
+        dagger_version = '2.27'
     }
     repositories {
         google()

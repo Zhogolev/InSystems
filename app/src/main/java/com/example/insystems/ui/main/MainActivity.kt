@@ -11,6 +11,7 @@ import com.example.insystems.ui.main.screens.MainScreen
 import com.example.insystems.ui.main.screens.getMainScreenForMenuItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
+//7eb4efde-223a-4d0c-a17b-75276ccb9b3c
 class MainActivity : FragmentActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
     private lateinit var viewPager: ViewPager2
     private lateinit var bottomNavigationView: BottomNavigationView
@@ -23,8 +24,17 @@ class MainActivity : FragmentActivity(), BottomNavigationView.OnNavigationItemSe
         mainPagerAdapter = MainPagerAdapter(this)
         mainPagerAdapter.setItems(arrayListOf(MainScreen.HOME, MainScreen.FAVORITES))
         viewPager.offscreenPageLimit = mainPagerAdapter.itemCount
-        viewPager.adapter = mainPagerAdapter
         bottomNavigationView = findViewById(R.id.nav_view)
+        viewPager.adapter = mainPagerAdapter
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                bottomNavigationView.selectedItemId = when (position) {
+                    0 -> R.id.navigation_home
+                    else -> R.id.navigation_favorites
+                }
+            }
+        })
+
 
         val defaultScreen = MainScreen.HOME
         scrollToScreen(defaultScreen)

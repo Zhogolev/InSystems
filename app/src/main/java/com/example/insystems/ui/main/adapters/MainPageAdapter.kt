@@ -17,6 +17,8 @@ class MainPagerAdapter(fm: FragmentActivity) : FragmentStateAdapter(fm) {
         }
     }
 
+    fun getItemResId(position: Int) = screens[position].fragment.id;
+
     fun getItems(): List<MainScreen> = screens
 
     override fun getItemCount(): Int {

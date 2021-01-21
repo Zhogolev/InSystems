@@ -15,9 +15,8 @@ class FavoritesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
+        val root = inflater.inflate(R.layout.fragment_favorites, container, false)
+        val textView: TextView = root.findViewById(R.id.text_favorites)
         textView.text = "favorites model data"
         return root
     }
