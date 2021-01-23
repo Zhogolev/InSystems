@@ -9,13 +9,20 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.insystems.DaggerApplication
 import com.example.insystems.R
+import com.example.insystems.data.network.model.Cat
+import com.example.insystems.di.qualifiers.ActivityScope
 import javax.inject.Inject
 
+@ActivityScope
 class HomeFragmentImpl : Fragment(),
     HomeFragment {
 
     @Inject
-    lateinit var presenter: HomePresenter
+    override lateinit var presenter: HomePresenter
+
+    private val catItemAdapter = CatListItemAdapter {
+        print("$it")
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,19 +30,39 @@ class HomeFragmentImpl : Fragment(),
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val recyclerView: RecyclerView = root.findViewById(R.id.recycler_view)
-        val catItemAdapter = CatItemAdapter {
-            print("$it")
-        }
-        recyclerView.adapter = catItemAdapter
+        val recyclerView = root.findViewById<RecyclerView>(R.id.recycler_view)
+        recyclerView?.adapter = catItemAdapter
+
+        presenter.attach(this)
+        presenter.getCatsList(page = 1)
+
         return root
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (requireActivity().application as DaggerApplication).appComponent.inject(this)
-        presenter.attach(this)
-        presenter.getCatsList(page = 1)
+        (requireActivity().application as DaggerApplication)
+            .appComponent
+            .homeComponent()
+            .create()
+            .inject(this)
+    }
+
+
+    override fun attachCatsList(cats: List<Cat>) {
+        catItemAdapter.submitList(cats)
+    }
+
+    override fun showError(it: Throwable) {
+        print("error")
+    }
+
+    override fun showLoading() {
+        print("show loading")
+    }
+
+    override fun hideLoading() {
+        print("hide loading")
     }
 
 }

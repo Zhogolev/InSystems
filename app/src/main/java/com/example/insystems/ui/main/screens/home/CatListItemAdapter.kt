@@ -12,8 +12,8 @@ import com.bumptech.glide.Glide
 import com.example.insystems.R
 import com.example.insystems.data.network.model.Cat
 
-class CatItemAdapter(private val onClick: (Cat) -> Unit) :
-    ListAdapter<Cat, CatItemAdapter.CatItemViewHolder>(CatDiffCallback) {
+class CatListItemAdapter(private val onClick: (Cat) -> Unit) :
+    ListAdapter<Cat, CatListItemAdapter.CatItemViewHolder>(CatDiffCallback) {
     class CatItemViewHolder(itemView: View, val onClick: (Cat) -> Unit) :
         RecyclerView.ViewHolder(itemView) {
 

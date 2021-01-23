@@ -1,10 +1,20 @@
 package com.example.insystems.di.components
 
-import com.example.insystems.ui.main.screens.home.HomeFragment
+import android.content.Context
+import com.example.insystems.di.modules.HomeModule
+import com.example.insystems.di.modules.NetworkModule
+import dagger.BindsInstance
 import dagger.Component
+import javax.inject.Singleton
 
-@Component(modules = [AppSubComponents::class])
+@Singleton
+@Component(modules = [HomeModule::class, NetworkModule::class, AppSubComponents::class])
 interface AppComponent {
-    fun inject(view: HomeFragment)
+    @Component.Factory
+    interface Factory {
+        fun create(@BindsInstance context: Context): AppComponent
+    }
+
     fun homeComponent(): HomeComponent.Factory
+
 }

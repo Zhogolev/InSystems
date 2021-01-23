@@ -7,6 +7,14 @@
     android:layout_height="match_parent">
 
 
+    <com.google.android.material.progressindicator.ProgressIndicator
+        android:id="@+id/progressLinearDeterminate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:progress="70"
+        style="@style/Widget.MaterialComponents.ProgressIndicator.Linear.Determinate"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         tools:itemCount="10"

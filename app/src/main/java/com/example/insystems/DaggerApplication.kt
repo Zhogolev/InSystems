@@ -5,7 +5,10 @@ import com.example.insystems.di.components.AppComponent
 import com.example.insystems.di.components.DaggerAppComponent
 
 
-class DaggerApplication : Application() {
+open class DaggerApplication : Application() {
 
-    val appComponent: AppComponent = DaggerAppComponent.create()
+    val appComponent: AppComponent by lazy {
+        DaggerAppComponent.factory().create(applicationContext)
+    }
+
 }

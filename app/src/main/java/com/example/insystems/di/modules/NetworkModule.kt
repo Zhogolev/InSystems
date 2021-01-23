@@ -13,17 +13,15 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
-
 @Module
 class NetworkModule {
 
     @Provides
-    @Singleton
     fun getApiInterface(retroFit: Retrofit): CatApi =
         retroFit.create(CatApi::class.java)
 
+
     @Provides
-    @Singleton
     fun getRetrofit(
         okHttpClient: OkHttpClient?,
         converter: Converter.Factory,
@@ -41,17 +39,16 @@ class NetworkModule {
     }
 
     @Provides
-    @Singleton
-    fun getOkHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient? {
+    fun getOkHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(interceptor)
             .build()
     }
 
     @Provides
-    @Singleton
     fun getLogger(): HttpLoggingInterceptor =
-        HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
+        HttpLoggingInterceptor()
+            .setLevel(HttpLoggingInterceptor.Level.BODY)
 
     @Provides
     @Singleton
