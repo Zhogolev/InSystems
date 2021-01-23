@@ -3,8 +3,8 @@ package com.example.insystems.ui.main.screens.home
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -16,7 +16,7 @@ class CatItemAdapter(private val onClick: (Cat) -> Unit) :
     ListAdapter<Cat, CatItemAdapter.CatItemViewHolder>(CatDiffCallback) {
     class CatItemViewHolder(itemView: View, val onClick: (Cat) -> Unit) :
         RecyclerView.ViewHolder(itemView) {
-        private val catTextView: TextView = itemView.findViewById(R.id.cat_text)
+
         private val catImageView: ImageView = itemView.findViewById(R.id.cat_image)
         private var currentCat: Cat? = null
 
@@ -26,14 +26,25 @@ class CatItemAdapter(private val onClick: (Cat) -> Unit) :
                     onClick(it)
                 }
             }
+
+            val btnLike = itemView.findViewById<ImageButton>(R.id.btnLike)
+            btnLike.setOnClickListener {
+                /// todo implement
+            }
+
+            val btnDownload = itemView.findViewById<ImageButton>(R.id.btnDownload)
+            btnDownload.setOnClickListener {
+                /// todo implement
+            }
+
         }
 
         fun bind(cat: Cat) {
             currentCat = cat
-
-            catTextView.text = cat.id
             cat.url.let {
-                Glide.with(itemView).load(it).into(catImageView)
+                Glide.with(itemView).load(it)
+                    .centerCrop()
+                    .into(catImageView)
             }
         }
     }
@@ -45,8 +56,8 @@ class CatItemAdapter(private val onClick: (Cat) -> Unit) :
     }
 
     override fun onBindViewHolder(holder: CatItemViewHolder, position: Int) {
-        val flower = getItem(position)
-        holder.bind(flower)
+        val cat = getItem(position)
+        holder.bind(cat)
     }
 }
 

@@ -12,11 +12,13 @@ buildscript {
         vectordrawable_version = "1.1.0"
         gradle_version = "4.1.2"
         rx_java_version = "2.2.20"
+        rx_android_version = "2.1.1"
         swipe_refresh_layout_version = "1.1.0"
         retrofit_version = "2.9.0"
         moshi_version = '1.11.0'
-        rxjava_adater_version = "2.2.0"
+        rxjava_adater_version = "2.7.1"
         dagger_version = '2.27'
+        ok_http_logger_version = '4.3.1'
     }
     repositories {
         google()

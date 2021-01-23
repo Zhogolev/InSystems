@@ -1,3 +1,5 @@
 package com.example.insystems.ui.main.screens.home
 
-interface HomeFragment
+import com.example.insystems.ui.main.screens.base.BaseView
+
+interface HomeFragment : BaseView
