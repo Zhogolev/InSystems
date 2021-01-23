@@ -6,22 +6,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <com.google.android.material.progressindicator.ProgressIndicator
-        android:id="@+id/progressLinearDeterminate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:progress="70"
-        style="@style/Widget.MaterialComponents.ProgressIndicator.Linear.Determinate"/>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
-        tools:itemCount="10"
-        tools:listitem="@layout/cat_list_element"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
+        tools:itemCount="10"
+        tools:listitem="@layout/cat_list_element" />
+
+    <com.google.android.material.progressindicator.ProgressIndicator
+        android:id="@+id/progress_indicator"
+        style="@style/Widget.MaterialComponents.ProgressIndicator.Circular.Indeterminate"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,12 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.insystems.DaggerApplication
 import com.example.insystems.R
 import com.example.insystems.data.network.model.Cat
 import com.example.insystems.di.qualifiers.ActivityScope
+import com.google.android.material.progressindicator.ProgressIndicator
 import javax.inject.Inject
 
 @ActivityScope
@@ -20,9 +22,11 @@ class HomeFragmentImpl : Fragment(),
     @Inject
     override lateinit var presenter: HomePresenter
 
-    private val catItemAdapter = CatListItemAdapter {
-        print("$it")
-    }
+    private val catItemAdapter = CatListItemAdapter()
+    private lateinit var loader: ProgressIndicator
+
+    val isLoading: Boolean
+        get() = loader.visibility == View.VISIBLE
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,13 +35,23 @@ class HomeFragmentImpl : Fragment(),
     ): View? {
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         val recyclerView = root.findViewById<RecyclerView>(R.id.recycler_view)
-        recyclerView?.adapter = catItemAdapter
+        loader = root.findViewById(R.id.progress_indicator)
+        loader.visibility = View.INVISIBLE
 
+        recyclerView?.adapter = catItemAdapter
+        recyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (!isLoading && !recyclerView.canScrollVertically(20)) {
+                    presenter.getCatsList()
+                }
+            }
+        })
         presenter.attach(this)
         presenter.getCatsList(page = 1)
 
         return root
     }
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -50,19 +64,21 @@ class HomeFragmentImpl : Fragment(),
 
 
     override fun attachCatsList(cats: List<Cat>) {
-        catItemAdapter.submitList(cats)
+        val newItems = catItemAdapter.currentList.toMutableList()
+        newItems.addAll(cats)
+        catItemAdapter.submitList(newItems)
     }
 
     override fun showError(it: Throwable) {
-        print("error")
+        Toast.makeText(context, "Ошибочка вышла", Toast.LENGTH_LONG).show()
     }
 
     override fun showLoading() {
-        print("show loading")
+        loader.show()
     }
 
     override fun hideLoading() {
-        print("hide loading")
+        loader.hide()
     }
 
 }

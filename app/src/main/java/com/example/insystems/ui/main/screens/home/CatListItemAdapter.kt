@@ -12,21 +12,15 @@ import com.bumptech.glide.Glide
 import com.example.insystems.R
 import com.example.insystems.data.network.model.Cat
 
-class CatListItemAdapter(private val onClick: (Cat) -> Unit) :
+class CatListItemAdapter :
     ListAdapter<Cat, CatListItemAdapter.CatItemViewHolder>(CatDiffCallback) {
-    class CatItemViewHolder(itemView: View, val onClick: (Cat) -> Unit) :
+    class CatItemViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
 
         private val catImageView: ImageView = itemView.findViewById(R.id.cat_image)
         private var currentCat: Cat? = null
 
         init {
-            itemView.setOnClickListener {
-                currentCat?.let {
-                    onClick(it)
-                }
-            }
-
             val btnLike = itemView.findViewById<ImageButton>(R.id.btnLike)
             btnLike.setOnClickListener {
                 /// todo implement
@@ -52,7 +46,7 @@ class CatListItemAdapter(private val onClick: (Cat) -> Unit) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatItemViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.cat_list_element, parent, false)
-        return CatItemViewHolder(view, onClick)
+        return CatItemViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: CatItemViewHolder, position: Int) {

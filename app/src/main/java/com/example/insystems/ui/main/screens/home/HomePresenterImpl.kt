@@ -3,6 +3,7 @@ package com.example.insystems.ui.main.screens.home
 import com.example.insystems.data.network.api.CatApi
 import com.example.insystems.data.utils.Order
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -11,23 +12,24 @@ class HomePresenterImpl @Inject constructor(var catsService: CatApi) : HomePrese
 
     private var view: HomeFragment? = null
 
+    private var disposable: Disposable? = null
+
     override fun getCatsList(page: Int, limit: Int, order: Order) {
-        print("requestcats")
-        catsService.getCatsList().subscribeOn(Schedulers.io())
+        disposable = catsService.getCatsList().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnComplete {
-                view?.hideLoading()
+            .doOnSubscribe {
+                view?.showLoading()
             }
             .doOnError {
                 view?.hideLoading()
                 view?.showError(it)
-
+                disposable?.dispose()
             }
-
             .subscribe {
                 view?.attachCatsList(it)
+                view?.hideLoading()
+                disposable?.dispose()
             }
-
 
     }
 
