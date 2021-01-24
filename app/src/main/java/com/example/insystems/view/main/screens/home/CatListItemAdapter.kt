@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.insystems.R
-import com.example.insystems.model.network.model.Cat
+import com.example.insystems.model.repository.domain.Cat
 
 class CatListItemAdapter :
     ListAdapter<Cat, CatListItemAdapter.CatItemViewHolder>(CatDiffCallback) {
@@ -35,7 +35,7 @@ class CatListItemAdapter :
 
         fun bind(cat: Cat) {
             currentCat = cat
-            cat.url.let {
+            cat.image.let {
                 Glide.with(itemView).load(it)
                     .centerCrop()
                     .into(catImageView)
@@ -56,11 +56,17 @@ class CatListItemAdapter :
 }
 
 object CatDiffCallback : DiffUtil.ItemCallback<Cat>() {
-    override fun areItemsTheSame(oldItem: Cat, newItem: Cat): Boolean {
+    override fun areItemsTheSame(
+        oldItem: Cat,
+        newItem: Cat
+    ): Boolean {
         return oldItem == newItem
     }
 
-    override fun areContentsTheSame(oldItem: Cat, newItem: Cat): Boolean {
+    override fun areContentsTheSame(
+        oldItem: Cat,
+        newItem: Cat
+    ): Boolean {
         return oldItem.id == newItem.id
     }
 }

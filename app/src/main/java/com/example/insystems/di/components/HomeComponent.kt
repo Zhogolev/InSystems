@@ -1,11 +1,9 @@
 package com.example.insystems.di.components
 
-import com.example.insystems.di.qualifiers.ActivityScope
-import com.example.insystems.view.main.MainActivity
-import com.example.insystems.view.main.screens.home.HomeFragmentImpl
+import com.example.insystems.view.main.screens.favorites.FavoritesFragment
+import com.example.insystems.view.main.screens.home.HomeFragment
 import dagger.Subcomponent
 
-@ActivityScope
 @Subcomponent
 interface HomeComponent {
 
@@ -14,6 +12,6 @@ interface HomeComponent {
         fun create(): HomeComponent
     }
 
-    fun inject(fragment: HomeFragmentImpl)
-    fun inject(activity: MainActivity)
+    fun inject(fragment: HomeFragment)
+    fun inject(fragment: FavoritesFragment)
 }

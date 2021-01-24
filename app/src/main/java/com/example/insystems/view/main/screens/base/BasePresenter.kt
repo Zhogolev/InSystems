@@ -1,4 +1,4 @@
-package com.example.insystems.presenter.base
+package com.example.insystems.view.main.screens.base
 
 
 interface BasePresenter<T : BaseView> {

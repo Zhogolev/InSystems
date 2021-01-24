@@ -1,7 +1,7 @@
 package com.example.insystems
 
 import android.app.Application
-import com.example.insystems.di.components.AppComponent
+import com.example.insystems.di.AppComponent
 import com.example.insystems.di.components.DaggerAppComponent
 
 

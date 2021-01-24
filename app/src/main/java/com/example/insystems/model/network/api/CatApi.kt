@@ -1,6 +1,6 @@
 package com.example.insystems.model.network.api
 
-import com.example.insystems.model.network.model.Cat
+import com.example.insystems.model.network.model.CatDto
 import com.example.insystems.model.utils.Order
 import io.reactivex.Observable
 import retrofit2.http.GET
@@ -13,5 +13,5 @@ interface CatApi {
         @Query("page") page: Int = 1,
         @Query("limit") limit: Int = 10,
         @Query("order") order: Order = Order.DESC
-    ): Observable<List<Cat>>
+    ): Observable<List<CatDto>>
 }

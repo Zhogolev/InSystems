@@ -3,26 +3,36 @@ package com.example.insystems.view.main
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.annotation.IdRes
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.example.insystems.R
 import com.example.insystems.view.main.adapters.MainPagerAdapter
-import com.example.insystems.view.main.screens.MainScreen
-import com.example.insystems.view.main.screens.getMainScreenForMenuItem
+import com.example.insystems.view.main.screens.favorites.FavoritesContract
+import com.example.insystems.view.main.screens.home.HomeContract
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import javax.inject.Inject
 
 //7eb4efde-223a-4d0c-a17b-75276ccb9b3c
-class MainActivity : FragmentActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+class MainActivity @Inject constructor() : FragmentActivity(),
+    BottomNavigationView.OnNavigationItemSelectedListener {
     private lateinit var viewPager: ViewPager2
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var mainPagerAdapter: MainPagerAdapter
+
+    @Inject
+    lateinit var homeFragment: HomeContract.View
+
+    @Inject
+    lateinit var favoritesFragment: FavoritesContract.View
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         viewPager = findViewById(R.id.nav_host_fragment)
         mainPagerAdapter = MainPagerAdapter(this)
-        mainPagerAdapter.setItems(arrayListOf(MainScreen.HOME, MainScreen.FAVORITES))
+        mainPagerAdapter.setItems(arrayListOf(homeFragment, favoritesFragment))
         viewPager.offscreenPageLimit = mainPagerAdapter.itemCount
         bottomNavigationView = findViewById(R.id.nav_view)
         viewPager.adapter = mainPagerAdapter
@@ -36,12 +46,12 @@ class MainActivity : FragmentActivity(), BottomNavigationView.OnNavigationItemSe
         })
 
 
-        val defaultScreen = MainScreen.HOME
+        val defaultScreen = homeFragment
         scrollToScreen(defaultScreen)
-        selectBottomNavigationViewMenuItem(defaultScreen.menuItemId)
+        selectBottomNavigationViewMenuItem(R.id.navigation_home)
     }
 
-    private fun scrollToScreen(mainScreen: MainScreen) {
+    private fun scrollToScreen(mainScreen: Fragment) {
         val screenPosition = mainPagerAdapter.getItems().indexOf(mainScreen)
         if (screenPosition != viewPager.currentItem) {
             viewPager.currentItem = screenPosition
@@ -55,11 +65,12 @@ class MainActivity : FragmentActivity(), BottomNavigationView.OnNavigationItemSe
     }
 
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
-        getMainScreenForMenuItem(menuItem.itemId)?.let {
-            scrollToScreen(it)
-            return true
+        when (menuItem.itemId) {
+            R.id.navigation_home -> scrollToScreen(homeFragment)
+            else -> scrollToScreen(favoritesFragment)
         }
-        return false
+        return true
     }
+
 
 }

@@ -3,13 +3,12 @@ package com.example.insystems.view.main.adapters
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.insystems.view.main.screens.MainScreen
 
 class MainPagerAdapter(fm: FragmentActivity) : FragmentStateAdapter(fm) {
 
-    private val screens = arrayListOf<MainScreen>()
+    private val screens = arrayListOf<Fragment>()
 
-    fun setItems(screens: List<MainScreen>) {
+    fun setItems(screens: List<Fragment>) {
         this.screens.apply {
             clear()
             addAll(screens)
@@ -17,13 +16,13 @@ class MainPagerAdapter(fm: FragmentActivity) : FragmentStateAdapter(fm) {
         }
     }
 
-    fun getItems(): List<MainScreen> = screens
+    fun getItems(): List<Fragment> = screens
 
     override fun getItemCount(): Int {
         return screens.size
     }
 
     override fun createFragment(position: Int): Fragment {
-        return screens[position].fragment
+        return screens[position]
     }
 }

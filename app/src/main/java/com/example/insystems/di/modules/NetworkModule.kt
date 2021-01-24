@@ -1,9 +1,11 @@
 package com.example.insystems.di.modules
 
+import android.content.Context
 import com.example.insystems.model.network.api.CatApi
 import dagger.Module
 import dagger.Provides
 import io.reactivex.schedulers.Schedulers
+import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.CallAdapter
@@ -17,13 +19,15 @@ import javax.inject.Singleton
 class NetworkModule {
 
     @Provides
+    @Singleton
     fun getApiInterface(retroFit: Retrofit): CatApi =
         retroFit.create(CatApi::class.java)
 
 
     @Provides
+    @Singleton
     fun getRetrofit(
-        okHttpClient: OkHttpClient?,
+        okHttpClient: OkHttpClient,
         converter: Converter.Factory,
         callAdapterFactory: CallAdapter.Factory
     ): Retrofit {
@@ -31,24 +35,31 @@ class NetworkModule {
             .baseUrl(BASE_URL)
             .addConverterFactory(converter)
             .addCallAdapterFactory(callAdapterFactory)
-        okHttpClient?.let {
-            builder.client(it)
-        }
-
+            .client(okHttpClient)
         return builder.build()
     }
 
     @Provides
-    fun getOkHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient {
+    @Singleton
+    fun getOkHttpClient(
+        interceptor: HttpLoggingInterceptor,
+        cache: Cache
+    ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(interceptor)
+            .cache(cache)
             .build()
     }
 
     @Provides
+    @Singleton
     fun getLogger(): HttpLoggingInterceptor =
         HttpLoggingInterceptor()
             .setLevel(HttpLoggingInterceptor.Level.BODY)
+
+    @Provides
+    @Singleton
+    fun getCache(applicationContext: Context) = Cache(applicationContext.cacheDir, 1024 * 1024 * 10)
 
     @Provides
     @Singleton

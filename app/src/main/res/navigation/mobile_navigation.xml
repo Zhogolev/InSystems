@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_favorites"
-        android:name="com.example.insystems.view.main.screens.favorites.FavoritesFragment"
+        android:name="com.example.insystems.view.main.screens.favorites.View"
         android:label="@string/title_favorites"
         tools:layout="@layout/fragment_favorites" />
 </navigation>

@@ -2,8 +2,8 @@ package com.example.insystems.di.modules
 
 import android.content.Context
 import androidx.room.Room
-import com.example.insystems.model.db.database.AppDatabase
 import com.example.insystems.model.db.dao.CatDao
+import com.example.insystems.model.db.database.AppDatabase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
