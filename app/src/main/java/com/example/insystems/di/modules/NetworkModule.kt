@@ -1,6 +1,6 @@
 package com.example.insystems.di.modules
 
-import com.example.insystems.data.network.api.CatApi
+import com.example.insystems.model.network.api.CatApi
 import dagger.Module
 import dagger.Provides
 import io.reactivex.schedulers.Schedulers

@@ -1,8 +1,8 @@
 package com.example.insystems.di.components
 
 import com.example.insystems.di.qualifiers.ActivityScope
-import com.example.insystems.ui.main.MainActivity
-import com.example.insystems.ui.main.screens.home.HomeFragmentImpl
+import com.example.insystems.view.main.MainActivity
+import com.example.insystems.view.main.screens.home.HomeFragmentImpl
 import dagger.Subcomponent
 
 @ActivityScope
