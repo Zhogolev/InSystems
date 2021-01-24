@@ -7,11 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.insystems.R
-import com.example.insystems.di.qualifiers.ActivityScope
+import com.example.insystems.di.qualifiers.FragmentScope
 import com.example.insystems.model.db.entity.CatEntity
 import javax.inject.Inject
 
-@ActivityScope
+@FragmentScope
 class FavoritesFragment @Inject constructor() : FavoritesContract.View() {
 
     @Inject

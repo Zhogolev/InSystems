@@ -2,7 +2,7 @@ package com.example.insystems
 
 import android.app.Application
 import com.example.insystems.di.AppComponent
-import com.example.insystems.di.components.DaggerAppComponent
+import com.example.insystems.di.DaggerAppComponent
 
 
 open class DaggerApplication : Application() {

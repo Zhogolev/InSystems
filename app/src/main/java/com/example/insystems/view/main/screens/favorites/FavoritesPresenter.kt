@@ -1,12 +1,11 @@
 package com.example.insystems.view.main.screens.favorites
 
-import com.example.insystems.di.qualifiers.ActivityScope
 import com.example.insystems.model.db.entity.CatEntity
 import javax.inject.Inject
 
+
 class FavoritesPresenter @Inject constructor() : FavoritesContract.Presenter {
 
-    @Inject
     lateinit var view: FavoritesContract.View
 
     override fun getAll(): List<CatEntity> {

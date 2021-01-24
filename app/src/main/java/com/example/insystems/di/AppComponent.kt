@@ -9,8 +9,15 @@ import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
 
+
+@Component(
+    modules = [
+        MainActivityBindingModule::class,
+        DatabaseModule::class,
+        NetworkModule::class
+    ]
+)
 @Singleton
-@Component(modules = [NetworkModule::class, MainActivityBindingModule::class, DatabaseModule::class])
 interface AppComponent {
 
     @Component.Factory
@@ -18,6 +25,7 @@ interface AppComponent {
         fun create(@BindsInstance context: Context): AppComponent
     }
 
-    fun homeComponent(): HomeComponent.Factory
+    fun subComponents(): HomeComponent.Factory
+
 
 }

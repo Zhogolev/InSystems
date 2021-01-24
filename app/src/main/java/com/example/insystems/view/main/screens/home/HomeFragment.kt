@@ -10,11 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.insystems.DaggerApplication
 import com.example.insystems.R
 import com.example.insystems.di.qualifiers.ActivityScope
+import com.example.insystems.di.qualifiers.FragmentScope
 import com.example.insystems.model.repository.domain.CatDomain
 import com.google.android.material.progressindicator.ProgressIndicator
 import javax.inject.Inject
 
-@ActivityScope
+
 class HomeFragment @Inject constructor() : HomeContract.View() {
 
     @Inject
@@ -55,9 +56,10 @@ class HomeFragment @Inject constructor() : HomeContract.View() {
         super.onAttach(context)
         (requireActivity().application as DaggerApplication)
             .appComponent
-            .homeComponent()
+            .subComponents()
             .create()
             .inject(this)
+        presenter.attach(this)
     }
 
 

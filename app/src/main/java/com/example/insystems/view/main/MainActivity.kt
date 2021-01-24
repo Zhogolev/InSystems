@@ -6,6 +6,7 @@ import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.widget.ViewPager2
+import com.example.insystems.DaggerApplication
 import com.example.insystems.R
 import com.example.insystems.view.main.adapters.MainPagerAdapter
 import com.example.insystems.view.main.screens.favorites.FavoritesContract
@@ -13,7 +14,6 @@ import com.example.insystems.view.main.screens.home.HomeContract
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import javax.inject.Inject
 
-//7eb4efde-223a-4d0c-a17b-75276ccb9b3c
 class MainActivity @Inject constructor() : FragmentActivity(),
     BottomNavigationView.OnNavigationItemSelectedListener {
     private lateinit var viewPager: ViewPager2
@@ -28,6 +28,10 @@ class MainActivity @Inject constructor() : FragmentActivity(),
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        (application as DaggerApplication)
+            .appComponent
+            .subComponents()
+            .create().inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         viewPager = findViewById(R.id.nav_host_fragment)

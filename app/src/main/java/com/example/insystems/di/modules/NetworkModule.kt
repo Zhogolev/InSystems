@@ -13,19 +13,16 @@ import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
-import javax.inject.Singleton
 
 @Module
 class NetworkModule {
 
     @Provides
-    @Singleton
     fun getApiInterface(retroFit: Retrofit): CatApi =
         retroFit.create(CatApi::class.java)
 
 
     @Provides
-    @Singleton
     fun getRetrofit(
         okHttpClient: OkHttpClient,
         converter: Converter.Factory,
@@ -40,7 +37,6 @@ class NetworkModule {
     }
 
     @Provides
-    @Singleton
     fun getOkHttpClient(
         interceptor: HttpLoggingInterceptor,
         cache: Cache
@@ -52,22 +48,18 @@ class NetworkModule {
     }
 
     @Provides
-    @Singleton
     fun getLogger(): HttpLoggingInterceptor =
         HttpLoggingInterceptor()
             .setLevel(HttpLoggingInterceptor.Level.BODY)
 
     @Provides
-    @Singleton
     fun getCache(applicationContext: Context) = Cache(applicationContext.cacheDir, 1024 * 1024 * 10)
 
     @Provides
-    @Singleton
     fun getCallAdapterFactory(): CallAdapter.Factory = RxJava2CallAdapterFactory
         .createWithScheduler(Schedulers.io())
 
     @Provides
-    @Singleton
     fun getConverterFactory(): Converter.Factory = MoshiConverterFactory.create()
 
 

@@ -8,9 +8,8 @@ import io.reactivex.Observable
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
-class NetworkCatRepositoryImpl @Inject constructor(var catsService: CatApi) : NetworkCatRepository {
 
+class NetworkCatRepositoryImpl @Inject constructor(var catsService: CatApi) : NetworkCatRepository {
     /**
      * return value regarding normal pagination (page: ..., onPage:...)
      */

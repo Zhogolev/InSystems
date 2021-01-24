@@ -6,7 +6,7 @@ import com.example.insystems.model.repository.domain.Cat
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
+
 class DbCatRepositoryImpl @Inject constructor(private val dao: CatDao) : DbCatRepository {
     override fun addToFavorite(cat: Cat) = dao.insert(CatEntity(cat.id, cat.image.toByteArray()))
 
