@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.insystems.view.main.screens.home.HomeFragmentImpl"
+        android:name="com.example.insystems.view.main.screens.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/main_activity_cats_list" />
 
     <fragment
         android:id="@+id/navigation_favorites"
-        android:name="com.example.insystems.view.main.screens.favorites.View"
+        android:name="com.example.insystems.view.main.screens.favorites.FavoritesFragment"
         android:label="@string/title_favorites"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/main_activity_cats_list" />
 </navigation>

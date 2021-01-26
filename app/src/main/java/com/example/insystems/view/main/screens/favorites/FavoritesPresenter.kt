@@ -1,25 +1,31 @@
 package com.example.insystems.view.main.screens.favorites
 
-import com.example.insystems.model.db.entity.CatEntity
+import com.example.insystems.model.repository.DbCatRepository
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 
-class FavoritesPresenter @Inject constructor() : FavoritesContract.Presenter {
+class FavoritesPresenter @Inject constructor(val repository: DbCatRepository) :
+    FavoritesContract.Presenter {
 
-    lateinit var view: FavoritesContract.View
+    override var view: FavoritesContract.View? = null
 
-    override fun getAll(): List<CatEntity> {
-        return arrayListOf()
+    override fun getCatsList() {
+        repository.getALL()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe {
+                view?.showLoading()
+            }
+            .doOnError {
+                view?.showError(it)
+                view?.hideLoading()
+            }.subscribe {
+                view?.attachCatsList(it)
+                view?.hideLoading()
+
+            }
     }
 
-    override fun removeFromFavorites(catEntity: CatEntity) {
-    }
-
-    override fun attach(view: FavoritesContract.View) {
-
-    }
-
-    override fun detach() {
-
-    }
 }

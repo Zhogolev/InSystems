@@ -11,6 +11,8 @@ import com.example.insystems.view.main.screens.favorites.FavoritesPresenter
 import com.example.insystems.view.main.screens.home.HomeContract
 import com.example.insystems.view.main.screens.home.HomeFragment
 import com.example.insystems.view.main.screens.home.HomePresenter
+import com.example.insystems.view.main.screens.base.item.CatItemContract
+import com.example.insystems.view.main.screens.base.item.CatItemPresenter
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -18,6 +20,9 @@ import dagger.android.ContributesAndroidInjector
 
 @Module
 abstract class MainActivityBindingModule {
+
+    @Binds
+    abstract fun getCatItemPresenter(presenter: CatItemPresenter): CatItemContract.Presenter
 
     @Binds
     abstract fun getHomeFragment(fragment: HomeFragment): HomeContract.View

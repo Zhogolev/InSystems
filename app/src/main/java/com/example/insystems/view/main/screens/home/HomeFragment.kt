@@ -7,11 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.insystems.DaggerApplication
 import com.example.insystems.R
-import com.example.insystems.di.qualifiers.ActivityScope
-import com.example.insystems.di.qualifiers.FragmentScope
 import com.example.insystems.model.repository.domain.CatDomain
+import com.example.insystems.view.main.MainActivity
+import com.example.insystems.view.main.screens.base.item.CatListItemAdapter
 import com.google.android.material.progressindicator.ProgressIndicator
 import javax.inject.Inject
 
@@ -21,7 +20,9 @@ class HomeFragment @Inject constructor() : HomeContract.View() {
     @Inject
     override lateinit var presenter: HomeContract.Presenter
 
-    private val catItemAdapter = CatListItemAdapter()
+    @Inject
+    lateinit var catItemAdapter: CatListItemAdapter
+
     private lateinit var loader: ProgressIndicator
 
     val isLoading: Boolean
@@ -32,12 +33,13 @@ class HomeFragment @Inject constructor() : HomeContract.View() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
+        val root = inflater.inflate(R.layout.main_activity_cats_list, container, false)
         val recyclerView = root.findViewById<RecyclerView>(R.id.recycler_view)
         loader = root.findViewById(R.id.progress_indicator)
         loader.visibility = View.INVISIBLE
 
         recyclerView?.adapter = catItemAdapter
+
         recyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (!isLoading && !recyclerView.canScrollVertically(20)) {
@@ -54,10 +56,8 @@ class HomeFragment @Inject constructor() : HomeContract.View() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (requireActivity().application as DaggerApplication)
-            .appComponent
-            .subComponents()
-            .create()
+        (requireActivity() as MainActivity)
+            .homeComponent
             .inject(this)
         presenter.attach(this)
     }
@@ -70,7 +70,7 @@ class HomeFragment @Inject constructor() : HomeContract.View() {
     }
 
     override fun showError(it: Throwable) {
-        Toast.makeText(context, "Ошибочка вышла", Toast.LENGTH_LONG).show()
+        Toast.makeText(requireContext(), "Ошибочка вышла", Toast.LENGTH_LONG).show()
     }
 
     override fun showLoading() {
