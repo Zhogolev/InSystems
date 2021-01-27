@@ -18,15 +18,17 @@ class HomePresenter @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
                 view?.showLoading()
+            }.doOnError {
+                view?.hideLoading()
             }
-            .doOnError {
+            .subscribe({ catsList ->
+                view?.updateCatDomain(catsList)
+            }, {
                 view?.showError(it)
+            }, {
                 view?.hideLoading()
-            }.subscribe {
-                view?.updateCatDomain(it)
-                view?.hideLoading()
+            })
 
-            }
     }
 
 }

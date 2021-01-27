@@ -13,6 +13,7 @@ import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.concurrent.TimeUnit
 
 @Module
 class NetworkModule {
@@ -43,6 +44,7 @@ class NetworkModule {
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(interceptor)
+            .connectTimeout(5, TimeUnit.SECONDS)
             .cache(cache)
             .build()
     }

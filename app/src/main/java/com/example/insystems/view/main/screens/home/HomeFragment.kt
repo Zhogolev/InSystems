@@ -7,11 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.insystems.R
 import com.example.insystems.model.repository.domain.CatDomain
 import com.example.insystems.view.main.MainActivity
 import com.example.insystems.view.main.screens.base.item.CatListItemAdapter
-import com.google.android.material.progressindicator.ProgressIndicator
 import javax.inject.Inject
 
 
@@ -23,20 +23,23 @@ class HomeFragment @Inject constructor() : HomeContract.View() {
     @Inject
     lateinit var catItemAdapter: CatListItemAdapter
 
-    private lateinit var loader: ProgressIndicator
+    private lateinit var loader: SwipeRefreshLayout
 
     val isLoading: Boolean
-        get() = loader.visibility == View.VISIBLE
+        get() = loader.isRefreshing
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.main_activity_cats_list, container, false)
+        val root = inflater.inflate(R.layout.home_fragment, container, false)
         val recyclerView = root.findViewById<RecyclerView>(R.id.recycler_view)
         loader = root.findViewById(R.id.progress_indicator)
-        loader.visibility = View.INVISIBLE
+        loader.setOnRefreshListener {
+            presenter.getCatsList()
+        }
+
 
         recyclerView?.adapter = catItemAdapter
 
@@ -49,7 +52,6 @@ class HomeFragment @Inject constructor() : HomeContract.View() {
         })
         presenter.attach(this)
         presenter.getCatsList(page = 1)
-
         return root
     }
 
@@ -74,11 +76,11 @@ class HomeFragment @Inject constructor() : HomeContract.View() {
     }
 
     override fun showLoading() {
-        loader.show()
+        loader.isRefreshing = true
     }
 
     override fun hideLoading() {
-        loader.hide()
+        loader.isRefreshing = false
     }
 
 }
