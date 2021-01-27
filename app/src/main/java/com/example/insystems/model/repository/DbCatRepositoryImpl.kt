@@ -8,10 +8,10 @@ import javax.inject.Inject
 
 
 class DbCatRepositoryImpl @Inject constructor(private val dao: CatDao) : DbCatRepository {
-    override fun addToFavorite(cat: Cat) = dao.insert(CatEntity(cat.id, cat.image.toByteArray()))
+    override fun addToFavorite(cat: Cat) = dao.insert(CatEntity(cat.id, cat.image))
 
     override fun removeFromFavorite(cat: Cat) =
-        dao.remove(CatEntity(cat.id, cat.image.toByteArray()))
+        dao.remove(CatEntity(cat.id, cat.image))
 
     override fun getALL(): Flowable<List<CatEntity>> = dao.getAll()
 }

@@ -34,7 +34,9 @@ class FavoritesFragment @Inject constructor() : FavoritesContract.View() {
         val recyclerView = root.findViewById<RecyclerView>(R.id.recycler_view)
         loader = root.findViewById(R.id.progress_indicator)
         loader.visibility = View.INVISIBLE
-       // recyclerView?.adapter = catItemAdapter
+
+
+        recyclerView?.adapter = catItemAdapter
         recyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (!isLoading && !recyclerView.canScrollVertically(20)) {
@@ -42,8 +44,8 @@ class FavoritesFragment @Inject constructor() : FavoritesContract.View() {
                 }
             }
         })
-//        presenter.attach(this)
- //       presenter.getCatsList()
+        presenter.attach(this)
+        presenter.getCatsList()
         return root
     }
 
@@ -62,7 +64,9 @@ class FavoritesFragment @Inject constructor() : FavoritesContract.View() {
 
     override fun attachCatsList(cats: List<CatEntity>) {
         catItemAdapter.submitList(cats.map {
-            Cat(it.id, liked = true, image = "")
+            Cat(
+                it.id, liked = true, image = it.image
+            )
         })
     }
 }

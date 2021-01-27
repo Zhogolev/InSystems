@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import com.example.insystems.model.db.dao.CatDao
 import com.example.insystems.model.db.entity.CatEntity
 
-@Database(entities = [CatEntity::class], version = 1, exportSchema = false)
+@Database(entities = [CatEntity::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun provideCatDao(): CatDao
 }

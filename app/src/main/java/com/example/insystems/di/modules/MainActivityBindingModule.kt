@@ -42,7 +42,6 @@ abstract class MainActivityBindingModule {
     @Binds
     abstract fun getFavoritesPresenter(presenter: FavoritesPresenter): FavoritesContract.Presenter
 
-
-    @ContributesAndroidInjector(modules = [MainActivityModule::class])
+    @ContributesAndroidInjector
     abstract fun mainActivity(): MainActivity
 }

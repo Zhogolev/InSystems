@@ -26,6 +26,6 @@ class FavoritesPresenter @Inject constructor(val repository: DbCatRepository) :
                 view?.hideLoading()
 
             }
-    }
+    }   
 
 }
