@@ -34,8 +34,6 @@ class FavoritesFragment @Inject constructor() : FavoritesContract.View() {
         val recyclerView = root.findViewById<RecyclerView>(R.id.recycler_view)
         loader = root.findViewById(R.id.progress_indicator)
         loader.visibility = View.INVISIBLE
-
-
         recyclerView?.adapter = catItemAdapter
         recyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {

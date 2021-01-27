@@ -7,8 +7,6 @@ import androidx.appcompat.widget.AppCompatImageButton
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
 import com.example.insystems.R
 import com.example.insystems.model.repository.domain.Cat
 
@@ -17,7 +15,7 @@ class CatItemViewHolder(itemView: View, private val context: Context) :
 
     lateinit var presenter: CatItemContract.Presenter
     private val catImageView: ImageView = itemView.findViewById(R.id.cat_image)
-    private var currentCat: Cat? = null
+    override lateinit var currentCat: Cat
 
     val btnLike: AppCompatImageButton = itemView.findViewById(R.id.btnLike)
     val btnDownload: AppCompatImageButton = itemView.findViewById(R.id.btnDownload)
@@ -34,11 +32,9 @@ class CatItemViewHolder(itemView: View, private val context: Context) :
                     .load(it)
                     .centerCrop()
                     .into(catImageView)
-            }catch (e: Throwable){
+            } catch (e: Throwable) {
                 print("cant load image for cat: ${cat.id}")
             }
-
-
         }
     }
 
@@ -50,6 +46,7 @@ class CatItemViewHolder(itemView: View, private val context: Context) :
             )
         )
     }
+
 
     override fun showInFavorites() {
         toggleLikeButtonColor(true)

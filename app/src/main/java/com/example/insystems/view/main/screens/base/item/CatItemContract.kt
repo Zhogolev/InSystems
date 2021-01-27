@@ -2,8 +2,10 @@ package com.example.insystems.view.main.screens.base.item
 
 import com.example.insystems.model.repository.domain.Cat
 
+
 interface CatItemContract {
     interface View {
+        var currentCat: Cat
         fun showInFavorites()
         fun showNotInFavorites()
     }

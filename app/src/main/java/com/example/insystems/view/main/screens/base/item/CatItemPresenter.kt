@@ -19,12 +19,10 @@ class CatItemPresenter @Inject constructor(val db: DbCatRepository) : CatItemCon
                 .doOnError {
                     print("error")
                 }.doOnComplete {
-                    print("complete")
+                    db.changeLike.onNext(cat)
                 }.subscribe {
                     print("subscribe")
                 }
-
-
             view.showInFavorites()
         } else {
             db.removeFromFavorite(cat).subscribeOn(Schedulers.io())
@@ -32,17 +30,23 @@ class CatItemPresenter @Inject constructor(val db: DbCatRepository) : CatItemCon
                 .doOnError {
                     print("error")
                 }.doOnComplete {
-                    print("complete")
+                    db.changeLike.onNext(cat)
                 }.subscribe {
                     print("subscribe")
                 }
-
             view.showNotInFavorites()
         }
     }
 
     override fun bindView(view: CatItemContract.View) {
         this.view = view
+        db.changeLike
+            .doOnNext {
+                if (view.currentCat.id == it.id) {
+                    if (it.liked) view.showInFavorites() else view.showNotInFavorites()
+                }
+
+            }.subscribe()
     }
 
 }
