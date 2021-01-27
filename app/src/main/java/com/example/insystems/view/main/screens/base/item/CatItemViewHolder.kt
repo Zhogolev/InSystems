@@ -3,6 +3,7 @@ package com.example.insystems.view.main.screens.base.item
 import android.content.Context
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -54,6 +55,10 @@ class CatItemViewHolder(itemView: View, private val context: Context) :
 
     override fun showNotInFavorites() {
         toggleLikeButtonColor(false)
+    }
+
+    override fun showSaved() {
+        Toast.makeText(context, "Image saved", Toast.LENGTH_SHORT).show()
     }
 
 }

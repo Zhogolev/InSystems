@@ -35,6 +35,9 @@ class CatListItemAdapter @Inject constructor(
             cat.liked = !cat.liked
             holder.presenter.setLike(cat)
         }
+        holder.btnDownload.setOnClickListener {
+            holder.presenter.downloadImage(cat)
+        }
     }
 }
 
