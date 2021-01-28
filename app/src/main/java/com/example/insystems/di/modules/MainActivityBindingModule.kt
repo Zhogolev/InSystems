@@ -15,7 +15,9 @@ import com.example.insystems.view.main.screens.home.HomeFragment
 import com.example.insystems.view.main.screens.home.HomePresenter
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.android.ContributesAndroidInjector
+import io.reactivex.disposables.CompositeDisposable
 
 
 @Module

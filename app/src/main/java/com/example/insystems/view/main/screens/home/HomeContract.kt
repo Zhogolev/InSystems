@@ -15,7 +15,7 @@ interface HomeContract {
     }
 
 
-    interface Presenter : BasePresenter<View> {
-        fun getCatsList(page: Int = 1, limit: Int = 10, order: Order = Order.DESC)
+    abstract class Presenter : BasePresenter<View>() {
+        abstract fun getCatsList(page: Int = 1, limit: Int = 10, order: Order = Order.DESC)
     }
 }
