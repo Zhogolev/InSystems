@@ -81,4 +81,9 @@ class HomeFragment @Inject constructor() : HomeContract.View() {
         loader.hide()
     }
 
+    override fun onDetach() {
+        presenter.detach()
+        super.onDetach()
+    }
+
 }

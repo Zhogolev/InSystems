@@ -11,7 +11,7 @@ interface FavoritesContract {
         abstract fun attachCatsList(cats: List<CatEntity>)
     }
 
-    interface Presenter : BasePresenter<View> {
-        fun getCatsList()
+    abstract class Presenter : BasePresenter<View>() {
+        abstract fun getCatsList()
     }
 }
