@@ -8,11 +8,13 @@ interface CatItemContract {
         var currentCat: Cat
         fun showInFavorites()
         fun showNotInFavorites()
+        fun showSaved()
     }
 
     interface Presenter {
-        var view: CatItemContract.View
+        var view: View
+        fun downloadImage(cat: Cat)
         fun setLike(cat: Cat)
-        fun bindView(view: CatItemContract.View)
+        fun bindView(view: View)
     }
 }

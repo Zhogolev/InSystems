@@ -9,11 +9,11 @@
         android:id="@+id/navigation_home"
         android:name="com.example.insystems.view.main.screens.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/main_activity_cats_list" />
+        tools:layout="@layout/home_fragment" />
 
     <fragment
         android:id="@+id/navigation_favorites"
         android:name="com.example.insystems.view.main.screens.favorites.FavoritesFragment"
         android:label="@string/title_favorites"
-        tools:layout="@layout/main_activity_cats_list" />
+        tools:layout="@layout/home_fragment" />
 </navigation>
