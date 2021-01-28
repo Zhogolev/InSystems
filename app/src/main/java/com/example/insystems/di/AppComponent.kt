@@ -2,6 +2,7 @@ package com.example.insystems.di
 
 import android.content.Context
 import com.example.insystems.di.components.HomeComponent
+import com.example.insystems.di.modules.AppModule
 import com.example.insystems.di.modules.DatabaseModule
 import com.example.insystems.di.modules.MainActivityBindingModule
 import com.example.insystems.di.modules.NetworkModule
@@ -14,7 +15,8 @@ import javax.inject.Singleton
     modules = [
         MainActivityBindingModule::class,
         DatabaseModule::class,
-        NetworkModule::class
+        NetworkModule::class,
+        AppModule::class
     ]
 )
 @Singleton

@@ -52,4 +52,9 @@ class FavoritesFragment @Inject constructor() : FavoritesContract.View() {
             )
         })
     }
+
+    override fun onDetach() {
+        presenter.detach()
+        super.onDetach()
+    }
 }
